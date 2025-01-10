@@ -1,73 +1,30 @@
 import '../declaration.d.ts'
 import './App.css'
+import products from '../data.json'
 
-function App() {
-  return (
+export default function App() {
+  	return (
 		<>
 			<div className="products">
-				<h1>Desserts</h1>
-				<div className="products-grid">
-					<div className="product">
-						<span className="product-description">Waffle</span>
-						<h4 className="product-name">Waffle with Berries</h4>
-						<span className="product-price">6.50</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Crème Brûlée</span>
-						<h4 className="product-name">Vanilla Bean Crème Brûlée</h4>
-						<span className="product-price">7.00</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Macaron</span>
-						<h4 className="product-name">Macaron Mix of Five</h4>
-						<span className="product-price">8.00</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Tiramisu</span>
-						<h4 className="product-name">Classic Tiramisu</h4>
-						<span className="product-price">5.50</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Baklava</span>
-						<h4 className="product-name">Pistachio Baklava</h4>
-						<span className="product-price">4.00</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Pie</span>
-						<h4 className="product-name">Lemon Meringue Pie</h4>
-						<span className="product-price">5.00</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Cake</span>
-						<h4 className="product-name">Red Velvet Cake</h4>
-						<span className="product-price">4.50</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Brownie</span>
-						<h4 className="product-name">Salted Caramel Brownie</h4>
-						<span className="product-price">4.50</span>
-						Add to Cart
-					</div>
-					<div className="product">
-						<span className="product-description">Panna Cotta</span>
-						<h4 className="product-name">Vanilla Panna Cotta</h4>
-						<span className="product-price">6.50</span>
-						Add to Cart
-					</div>
+				<h1 className="product-title">Desserts</h1>
+				<p className="product">Our selection of desserts</p>
+				<div className="product-list">
+					{products.map((product) => (
+						<div key={product.id} className="product">
+							<img className="product-img" src={product.image.desktop} alt={product.name} width={150}/>
+							<p className="product-category">{product.category}</p>
+							<h2 className="product-name">{product.name}</h2>
+							<p className="product-price">${product.price}</p>
+							<button className="product-btn">Add to Cart</button>
+						</div>
+					))}
 				</div>
 			</div>
 
-			Your Cart (!-- Quantity --)
-			Your added items will appear here
+			<div className="cart">
+				<h3 className="cart-title">Your Cart (-- Quantity --)</h3>
+				<p className="cart-description">Your added items will appear here</p>
+			</div>
 		</>
 	)
 }
-
-export default App

@@ -1,6 +1,7 @@
 [
     {
-       "image": {
+       "id": 1,
+        "image": {
             "thumbnail": "./assets/images/image-waffle-thumbnail.jpg",
             "desktop": "./assets/images/image-waffle-desktop.jpg"
        },
@@ -9,6 +10,7 @@
        "price": 6.50
     },
     {
+        "id": 2,
         "image": {
             "thumbnail": "./assets/images/image-creme-brulee-thumbnail.jpg",
             "desktop": "./assets/images/image-creme-brulee-desktop.jpg"
@@ -18,6 +20,7 @@
         "price": 7.00
      },
      {
+        "id": 3,
         "image": {
             "thumbnail": "./assets/images/image-macaron-thumbnail.jpg",
             "desktop": "./assets/images/image-macaron-desktop.jpg"
@@ -27,6 +30,7 @@
         "price": 8.00
      },
      {
+        "id": 4,
         "image": {
             "thumbnail": "./assets/images/image-tiramisu-thumbnail.jpg",
             "desktop": "./assets/images/image-tiramisu-desktop.jpg"
@@ -36,6 +40,7 @@
         "price": 5.50
      },
      {
+        "id": 5,
         "image": {
             "thumbnail": "./assets/images/image-baklava-thumbnail.jpg",
             "desktop": "./assets/images/image-baklava-desktop.jpg"
@@ -45,6 +50,7 @@
         "price": 4.00
      },
      {
+        "id": 6,
         "image": {
             "thumbnail": "./assets/images/image-meringue-thumbnail.jpg",
             "desktop": "./assets/images/image-meringue-desktop.jpg"
@@ -54,6 +60,7 @@
         "price": 5.00
      },
      {
+        "id": 7,
         "image": {
             "thumbnail": "./assets/images/image-cake-thumbnail.jpg",
             "desktop": "./assets/images/image-cake-desktop.jpg"
@@ -63,6 +70,7 @@
         "price": 4.50
      },
      {
+        "id": 8,
         "image": {
             "thumbnail": "./assets/images/image-brownie-thumbnail.jpg",
             "desktop": "./assets/images/image-brownie-desktop.jpg"
@@ -72,6 +80,7 @@
         "price": 4.50
      },
      {
+        "id": 9,
         "image": {
             "thumbnail": "./assets/images/image-panna-cotta-thumbnail.jpg",
             "desktop": "./assets/images/image-panna-cotta-desktop.jpg"
