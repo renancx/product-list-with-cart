@@ -1,3 +1,6 @@
+import '../declaration.d.ts'
+import './App.css'
+
 function App() {
   return (
 		<>
