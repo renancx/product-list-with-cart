@@ -4,6 +4,7 @@ import products from '../data.json'
 import { useState } from 'react'
 import { Dialog } from 'primereact/dialog';
 import dialogHeader from '../assets/images/icon-order-confirmed.svg'
+import cartIcon  from '../assets/images/icon-add-to-cart.svg'
 
 interface Product {
 	id: number;
@@ -25,6 +26,10 @@ export default function App() {
 	// const [quantity, setQuantity] = useState(0);
 	const [visible, setVisible] = useState(false);
 	const [cart, setCart] = useState<Cart>({products: [], total: 0});
+
+	const convertToCurrency = (value: number) => {
+		return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+	}
 
 	const handleAddToCart = (product: Product) => {
 		const id = product.id;
@@ -77,10 +82,12 @@ export default function App() {
 						{products.map((product) => (
 							<div key={product.id} className="product">
 								<img className="product-img" src={product.image.desktop} alt={product.name} width={250}/>
-								<button className="product-btn" onClick={() => handleAddToCart(product)}>Add to Cart</button>
-								<p className="product-category">{product.category}</p>
-								<h2 className="product-name">{product.name}</h2>
-								<p className="product-price">${product.price}</p>
+								<button className="product-btn" onClick={() => handleAddToCart(product)}><img className="cart-product-img" src={cartIcon} /> <span className="add-to-cart">Add to Cart</span></button>
+								<div className="product-overlay">
+									<p className="product-category">{product.category}</p>
+									<h2 className="product-name">{product.name}</h2>
+									<p className="product-price">{convertToCurrency(product.price)}</p>
+								</div>
 							</div>
 						))}
 					</div>
@@ -106,15 +113,18 @@ export default function App() {
 										<p className="cart-dialog-product-name">{product.name}</p>
 										<div className="cart-dialog-product-values">
 											<p className="cart-dialog-product-quantity">{product.quantity}x</p>
-											<p className="cart-dialog-product-price">@ ${product.price}</p>
+											<p className="cart-dialog-product-price">@ {convertToCurrency(product.price)}</p>
 										</div>
 									</div>
 								</div>
-								<p className="cart-dialog-product-total">${product.price * (product.quantity ?? 0)}</p>
+								<p className="cart-dialog-product-total">{convertToCurrency(product.price * (product.quantity ?? 0))}</p>
 							</li>
 						))}
 					</ul>
-					<p className="cart-dialog-total">Total: ${cart.products.reduce((acc, product) => acc + (product.price * (product.quantity ?? 0)), 0)}</p>
+					<div className="cart-total">
+						<p className="cart-dialog-total">Order Total:</p>
+						<p className="cart-dialog-total-price">{convertToCurrency(cart.products.reduce((acc, product) => acc + (product.price * (product.quantity ?? 0)), 0))}</p>
+					</div>
 
 					<button className="confirm-btn" onClick={() => handleConfirmOrder() }>Start New Order</button>
 				</Dialog>
@@ -135,8 +145,8 @@ export default function App() {
 									</div>
 									<div className="cart-second-line">
 										<p className="cart-product-quantity">{product.quantity}x</p>
-										<p className="cart-product-price">${product.price}</p>
-										<p className="cart-product-total">${product.price * (product.quantity ?? 0)}</p>
+										<p className="cart-product-price">{convertToCurrency(product.price)}</p>
+										<p className="cart-product-total">{convertToCurrency(product.price * (product.quantity ?? 0))}</p>
 									</div>
 									<hr className="cart-product-line" />
 								</div>
