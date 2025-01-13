@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Dialog } from 'primereact/dialog';
 import dialogHeader from '../assets/images/icon-order-confirmed.svg'
 import cartIcon  from '../assets/images/icon-add-to-cart.svg'
+import emptyCart from '../assets/images/illustration-empty-cart.svg'
 
 interface Product {
 	id: number;
@@ -133,7 +134,8 @@ export default function App() {
 					<h3 className="cart-title">Your Cart ({ cart.total })</h3>
 					
 					{cart.total == 0 && (
-						<p className="cart-description">Your added items will appear here</p>
+						<p className="cart-description">
+							<img className="empty-cart" src={emptyCart} alt="Empty Cart" />Your added items will appear here</p>
 					)}
 
 					{cart.total > 0 && (
