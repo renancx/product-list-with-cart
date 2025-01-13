@@ -2,6 +2,7 @@ import '../declaration.d.ts'
 import './App.css'
 import products from '../data.json'
 import { useState } from 'react'
+import { Dialog } from 'primereact/dialog';
 
 interface Product {
 	id: number;
@@ -17,6 +18,7 @@ interface Cart {
 
 export default function App() {
 	const [quantity, setQuantity] = useState(0);
+	const [visible, setVisible] = useState(false);
 	const [cart, setCart] = useState<Cart>({products: [], total: 0});
 
 	const handleAddToCart = (product: Product) => {
@@ -73,6 +75,23 @@ export default function App() {
 					</div>
 				</div>
 
+				<Dialog 
+					header="Header" 
+					visible={visible} 
+					style={{ width: '50vw' }} 
+					onHide={() => {if (!visible) return; setVisible(false);}}
+					modal={true}
+					maskStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+					className="cart-dialog"
+				>
+					<p className="m-0">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+						Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</p>
+				</Dialog>
+
 				<div className="cart">
 					<h3 className="cart-title">Your Cart ({ cart.total })</h3>
 					
@@ -95,6 +114,7 @@ export default function App() {
 									<hr className="cart-product-line" />
 								</div>
 							))}
+							<button className="confirm-btn" onClick={() => setVisible(true)}>Confirm Order</button>
 						</div>
 					)}
 				</div>
