@@ -3,12 +3,17 @@ import './App.css'
 import products from '../data.json'
 import { useState } from 'react'
 import { Dialog } from 'primereact/dialog';
+import dialogHeader from '../assets/images/icon-order-confirmed.svg'
 
 interface Product {
 	id: number;
 	name: string;
 	price: number;
 	quantity?: number;
+	image: {
+		thumbnail: string;
+		desktop: string;
+	};
 }
 
 interface Cart {
@@ -17,7 +22,7 @@ interface Cart {
 }
 
 export default function App() {
-	const [quantity, setQuantity] = useState(0);
+	// const [quantity, setQuantity] = useState(0);
 	const [visible, setVisible] = useState(false);
 	const [cart, setCart] = useState<Cart>({products: [], total: 0});
 
@@ -34,7 +39,8 @@ export default function App() {
 						id: productData.id,
 						name: productData.name,
 						price: productData.price,
-						quantity: 1
+						quantity: 1,
+						image: productData.image
 					}
 				],
 				total: cart.total + 1
@@ -80,10 +86,9 @@ export default function App() {
 					</div>
 				</div>
 
-				<Dialog 
-					header="Header" 
-					visible={visible} 
-					style={{ width: '50vw' }} 
+				<Dialog
+					header={<img src={dialogHeader} alt="Order Confirmed" /> }
+					visible={visible}
 					onHide={() => {if (!visible) return; setVisible(false);}}
 					modal={true}
 					maskStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
@@ -93,10 +98,19 @@ export default function App() {
 					<p className="cart-dialog-description">We hope you enjoy your food</p>
 					<ul className="cart-dialog-list">
 						{cart.products.map((product) => (
+							console.log(product),
 							<li key={product.id} className="cart-dialog-product">
-								<p className="cart-dialog-product-name">{product.name}</p>
-								<p className="cart-dialog-product-quantity">{product.quantity}x</p>
-								<p className="cart-dialog-product-price">${product.price}</p>
+								<div className="cart-dialog-product-left">
+									<img className="cart-product-img" src={product.image?.thumbnail} alt={product.name} width={70} height={70} />
+									<div className="cart-dialog-product-info">
+										<p className="cart-dialog-product-name">{product.name}</p>
+										<div className="cart-dialog-product-values">
+											<p className="cart-dialog-product-quantity">{product.quantity}x</p>
+											<p className="cart-dialog-product-price">@ ${product.price}</p>
+										</div>
+									</div>
+								</div>
+								<p className="cart-dialog-product-total">${product.price * (product.quantity ?? 0)}</p>
 							</li>
 						))}
 					</ul>
