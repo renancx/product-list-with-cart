@@ -38,7 +38,7 @@ button:hover {
     gap: 5px;
     position: absolute;
     bottom: 70px;
-    left: 25%;
+    left: 22%;
 }
 
 .product-btn:hover {
@@ -75,6 +75,7 @@ html {
     align-items: center;
     margin-top: 20px;
     position: relative;
+    width: 250px;
 }
 
 .product-img {
