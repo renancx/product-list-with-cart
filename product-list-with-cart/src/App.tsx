@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { Dialog } from 'primereact/dialog';
 import dialogHeader from '../assets/images/icon-order-confirmed.svg'
 import cartIcon  from '../assets/images/icon-add-to-cart.svg'
+import emptyCart from '../assets/images/illustration-empty-cart.svg'
+import removeIcon from '../assets/images/icon-remove-item.svg'
 
 interface Product {
 	id: number;
@@ -66,6 +68,37 @@ export default function App() {
 				total: cart.total + 1
 			});
 		}
+	}
+
+	const handleRemoveFromCart = (product: Product) => {
+		const id = product.id;
+		const productIndex = cart.products.findIndex((item) => item.id === id);
+		const productData = products.find((item) => item.id === id);
+
+		if (productIndex !== -1 && productData) {
+			const newCart = cart.products.map((item) => {
+				if (item.id === id) {
+					return {
+						...item,
+						quantity: (item.quantity || 0) - 1
+					}
+				}
+				return item;
+			});
+
+			const newTotal = cart.total - 1;
+
+			if (newTotal === 0) {
+				setCart({products: [], total: 0});
+			} else {
+				setCart({
+					products: newCart.filter((item) => item.quantity && item.quantity > 0),
+					total: newTotal
+				});
+			}
+		}
+		
+
 	}
 
 	const handleConfirmOrder = () => {
@@ -133,22 +166,26 @@ export default function App() {
 					<h3 className="cart-title">Your Cart ({ cart.total })</h3>
 					
 					{cart.total == 0 && (
-						<p className="cart-description">Your added items will appear here</p>
-					)}
+						<p className="cart-description"><img src={emptyCart} alt="Empyt Cart" width={120}/>Your added items will appear here</p>
+					)} 
+					
 
 					{cart.total > 0 && (
 						<div className="cart-list">
 							{cart.products.map((product) => (
 								<div key={product.id} className="cart-product">
-									<div className="cart-first-line">
-										<p className="cart-product-name">{product.name}</p>
+									<div className="left">
+										<div className="cart-first-line">
+											<p className="cart-product-name">{product.name}</p>
+										</div>
+										<div className="cart-second-line">
+											<p className="cart-product-quantity">{product.quantity}x</p>
+											<p className="cart-product-price">{convertToCurrency(product.price)}</p>
+											<p className="cart-product-total">{convertToCurrency(product.price * (product.quantity ?? 0))}</p>
+										</div>
 									</div>
-									<div className="cart-second-line">
-										<p className="cart-product-quantity">{product.quantity}x</p>
-										<p className="cart-product-price">{convertToCurrency(product.price)}</p>
-										<p className="cart-product-total">{convertToCurrency(product.price * (product.quantity ?? 0))}</p>
-									</div>
-									<hr className="cart-product-line" />
+									<button className="cart-product-remove" onClick={() => handleRemoveFromCart(product)}><img src={removeIcon} alt="Remove Item" /></button>
+									
 								</div>
 							))}
 							<button className="confirm-btn" onClick={() => setVisible(true)}>Confirm Order</button>
