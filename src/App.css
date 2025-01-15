@@ -255,3 +255,16 @@ html {
     justify-content: space-between;
     padding: 0 30px 10px 0;
 }
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+}
+
+.cart-description {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
